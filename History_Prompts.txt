@@ -1,0 +1,114 @@
+1 prompt tạo bối cảnh và yêu cầu:
+
+```
+bạn là 1 IT Consultant & System Analyst độc lập. nhiệm vụ của bạn là thiết kế bối cảnh và yêu cầu cho Hệ thống Quản lý Chuỗi Phòng hát Karaoke (Karaoke Booking & POS). 
+ràng buộc bối cảnh: bạn được tự do định hình nghiệp vụ, nhưng hệ thống của bạn bắt buộc phải có ít nhất 3 phân hệ (Module) cốt lõi và có sự tham gia của ít nhất 3 đối tượng người dùng (Actors) khác nhau
+
+kết quả trả về là 1 bối cảnh ban đầu và danh sách các yêu cầu "thô" được liệt kê để xây dựng srs. không cần yêu cầu chi tiết, đây mới chỉ là bước tạo yêu cầu thô
+
+```
+
+2. prompt chuẩn hóa yêu cầu: 
+
+```
+Bạn là một Senior Business Analyst (BA). Dưới đây là yêu cầu thô và bối cảnh của một dự án phần mềm. Nhiệm vụ của bạn trong bước này là thực hiện PHẦN 1: CHUẨN HÓA YÊU CẦU (Requirement Normalization).
+
+Hãy bóc tách và phân loại rõ ràng thành các mục sau:
+1. Danh sách Tác nhân (Actors): Định nghĩa rõ các vai trò và mô tả cụ thể trách nhiệm của từng tác nhân trong hệ thống.
+2. Yêu cầu chức năng (Functional Requirements - FR): Bóc tách thành các tính năng cốt lõi và đánh mã ID rõ ràng (Ví dụ: FR-001, FR-002...).
+3. Yêu cầu phi chức năng (Non-functional Requirements - NFR): Phân loại cụ thể theo Hiệu năng (Performance), Bảo mật (Security), Khả năng mở rộng (Scalability) và Tính tương thích.
+
+Yêu cầu đầu ra: Rõ ràng, không mơ hồ, ngôn ngữ chuẩn BA để chuẩn bị cho bước thiết kế hệ thống tiếp theo.
+
+Dưới đây là phần Yêu cầu và Bối cảnh thô:
+=========================================
+1. Bối cảnh Nghiệp vụ (Business Context)
+"Karaoke StarChain" là một chuỗi phòng hát karaoke phân khúc cận cao cấp với nhiều chi nhánh. Khách hàng có thể đặt phòng trước qua ứng dụng hoặc đến trực tiếp. Hệ thống cần giải quyết các bài toán:
+
+Tự động hóa quy trình đặt phòng và xếp phòng để tránh trùng lịch.
+
+Quản lý gọi món (Food & Beverage - F&B) và dịch vụ đi kèm ngay tại phòng theo thời gian thực.
+
+Tính tiền chuẩn xác dựa trên thời gian hát (áp dụng khung giờ thường/vàng) và hóa đơn dịch vụ, tích hợp thanh toán nhanh.
+
+2. Đối tượng người dùng (Actors)
+Hệ thống sẽ có sự tham gia của 3 nhóm đối tượng cốt lõi:
+
+Khách hàng (Customer): Người trực tiếp trải nghiệm dịch vụ, thực hiện đặt phòng trực tuyến và gọi món tại phòng.
+
+Nhân viên Phục vụ / Thu ngân (Staff): Người tiếp nhận khách, mở/đóng phòng trên hệ thống, ghi nhận order món trực tiếp và in hóa đơn thanh toán.
+
+Quản trị viên / Chủ chuỗi (Admin/Manager): Người quản lý cấu hình phòng, giá dịch vụ, quản lý kho hàng và theo dõi báo cáo doanh thu toàn chuỗi.
+
+3. Ba phân hệ cốt lõi & Danh sách Yêu cầu Thô (Rough Requirements)
+Phân hệ 1: Quản lý Đặt phòng (Booking & Room Management)
+Khách hàng có thể tìm kiếm phòng trống theo chi nhánh, khung giờ và loại phòng (Thường, VIP, Super VIP).
+
+Khách hàng có thể đặt giữ phòng trước và đặt cọc online.
+
+Hệ thống tự động cập nhật trạng thái phòng (Trống, Đang dọn dẹp, Đang sử dụng, Đã đặt trước).
+
+Nhân viên có thể Check-in cho khách đã đặt trước hoặc khách vãng lai (Walk-in), tự động kích hoạt bộ đếm giờ của phòng.
+
+Phân hệ 2: Gọi món & Dịch vụ tại phòng (POS & F&B Ordering)
+Nhân viên hoặc Khách hàng (quét QR tại phòng) có thể gọi món (bia, nước ngọt, trái cây, đồ ăn nhẹ) trực tiếp vào số phòng đang sử dụng.
+
+Yêu cầu gọi món phải được chuyển ngay đến bộ phận Bếp/Kho để chuẩn bị.
+
+Hệ thống phải trừ số lượng nguyên vật liệu/sản phẩm trong kho tương ứng khi món được xác nhận giao thành công.
+
+Hệ thống cho phép chuyển đổi phòng hoặc gộp phòng cho khách khi có yêu cầu phát sinh.
+
+Phân hệ 3: Thanh toán & Báo cáo (Billing & Analytics)
+Khi khách yêu cầu tính tiền, hệ thống tự động chốt giờ, tính tiền giờ dựa trên bảng giá cấu hình theo khung giờ (ngày/đêm, ngày thường/cuối tuần).
+
+Hệ thống tổng hợp tiền giờ, tiền dịch vụ (F&B), thuế và phí dịch vụ thành hóa đơn hoàn chỉnh.
+
+Hỗ trợ nhiều phương thức thanh toán: Tiền mặt, Chuyển khoản (quét QR động), Ví điện tử.
+
+Chủ chuỗi có thể xem báo cáo doanh thu theo ngày/tháng/năm, báo cáo hiệu suất sử dụng phòng và thống kê các món F&B bán chạy nhất.
+=========================================
+```
+
+
+3. PROMPT Thiết kế sơ đồ Mermaid
+
+```
+Dựa trên danh sách các Tác nhân (Actors) và Yêu cầu chức năng (FR) mà bạn vừa chuẩn hóa ở bước trên, hãy thực hiện PHẦN 2: THIẾT KẾ SƠ ĐỒ (UML & Database Design via Mermaid).
+
+Hãy sinh mã code Mermaid (đặt riêng biệt trong các khối code) cho 2 loại sơ đồ sau:
+
+1. Sơ đồ Use Case tổng quan (Use Case Diagram): Thể hiện trực quan mối quan hệ giữa các Actors đã xác định và các Use Case (chức năng chính) của hệ thống.
+2. Sơ đồ thực thể mối quan hệ (ERD - Entity Relationship Diagram): Thiết kế cấu trúc cơ sở dữ liệu cốt lõi cho hệ thống. Sơ đồ bắt buộc phải định nghĩa rõ các trường dữ liệu, kiểu dữ liệu, khóa chính (PK), khóa ngoại (FK) và mối quan hệ (1-n, n-n) giữa ít nhất các bảng sau:
+   - Users (Thông tin người dùng)
+   - Roles (Phân quyền hệ thống)
+   - Products (Thông tin sản phẩm/dịch vụ)
+   - Orders (Thông tin đơn hàng tổng quan)
+   - Order_Items (Chi tiết sản phẩm trong đơn hàng)
+```
+
+
+
+4. prompt Lập tài liệu SRS chuẩn IEEE
+
+```
+Dựa trên kết quả chuẩn hóa yêu cầu và các sơ đồ thiết kế hệ thống ở hai bước trước, hãy thực hiện PHẦN 3: LẬP TÀI LIỆU ĐẶC TẢ SRS (IEEE Standard SRS Creation).
+
+Hãy tổng hợp và biên soạn một tài liệu Software Requirements Specification (SRS) hoàn chỉnh, có cấu trúc nghiêm ngặt theo chuẩn IEEE bằng định dạng Markdown. Cấu trúc tài liệu phải bao gồm tối thiểu các mục sau:
+
+1. Introduction
+   - 1.1 Purpose
+   - 1.2 Scope (Phạm vi hệ thống: Liệt kê rõ những gì nằm trong phạm vi - In Scope và những gì không thực hiện - Out of Scope)
+2. Overall Description
+   - 2.1 Product Perspective (Bối cảnh sản phẩm)
+   - 2.2 Product Functions (Tóm tắt chức năng chính)
+   - 2.3 User Classes and Characteristics (Phân nhóm người dùng)
+   - 2.4 Design and Implementation Constraints (Các ràng buộc thiết kế, công nghệ, kiến trúc)
+3. Specific Requirements
+   - 3.1 Functional Requirements (Thiết kế dạng bảng chi tiết cho từng FR bao gồm: ID, Tên tính năng, Tác nhân, Mô tả, Luồng xử lý chính - Happy Path, và các Trường hợp ngoại lệ - Edge cases).
+   - 3.2 Non-Functional Requirements (Chi tiết kỹ thuật cho các tiêu chí NFR đã phân tích ở bước 1).
+   - 3.3 Business Rules (Quy tắc ràng buộc logic nghiệp vụ và tính toàn vẹn của dữ liệu).
+
+Yêu cầu phong cách: Ngôn ngữ kỹ thuật chuẩn xác, mạch lạc, có tính khả thi cao để đội ngũ Developers và QA/QC có thể làm việc được ngay.
+```
+
